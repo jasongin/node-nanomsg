@@ -530,7 +530,7 @@ napi_value DeviceWorker(napi_env env, napi_callback_info info) {
   CHECK_STATUS;
 
 
-NAPI_MODULE_INIT(InitAll) {
+void InitAll(napi_env env, napi_value exports, napi_value module, void* priv) {
   napi_status status;
   napi_handle_scope scope;
   status = napi_open_handle_scope(env, &scope);
