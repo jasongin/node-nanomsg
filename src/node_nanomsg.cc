@@ -89,6 +89,8 @@ napi_value Getopt(napi_env env, napi_callback_info info) {
     CHECK_STATUS;
     return ret;
   }
+
+  return nullptr;
 }
 
 napi_value Chan(napi_env env, napi_callback_info info) {
@@ -278,6 +280,7 @@ napi_value SymbolInfo(napi_env env, napi_callback_info info) {
     status = napi_throw_error(env, (char*) nn_strerror(nn_errno()));
     CHECK_STATUS
   }
+  return nullptr;
 }
 
 napi_value Symbol(napi_env env, napi_callback_info info) {
@@ -313,10 +316,11 @@ napi_value Symbol(napi_env env, napi_callback_info info) {
     // but we are faithfully following the libnanomsg API, warta and all
     status = napi_throw_error(env, (char*) nn_strerror(nn_errno()));  // EINVAL
     CHECK_STATUS;
+    return nullptr;
   }
 }
 
-napi_value Term(napi_env env, napi_callback_info info) { nn_term(); }
+napi_value Term(napi_env env, napi_callback_info info) { nn_term(); return nullptr; }
 
 // Pass in two sockets, or (socket, -1) or (-1, socket) for loopback
 void Device(napi_env env, napi_callback_info info) {
@@ -376,6 +380,7 @@ napi_value PollStop(napi_env env, napi_callback_info info) {
   }
   // TODO: the else case should never happen.  Maybe add an assert or
   // something.
+  return nullptr;
 }
 
 class NanomsgDeviceWorker {
@@ -519,6 +524,7 @@ napi_value DeviceWorker(napi_env env, napi_callback_info info) {
   CHECK_STATUS;
 
   NanomsgDeviceWorker::AsyncQueueWorker(env, new NanomsgDeviceWorker(env, args[2], s1, s2));
+  return nullptr;
 }
 
 #define EXPORT_METHOD(C, S)                                            \
